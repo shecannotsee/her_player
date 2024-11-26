@@ -22,5 +22,5 @@ TEST(unit, main_window_test) {
   window.show();
 
   // 进入事件循环
-  app.exec();
+  QApplication::exec();
 }
