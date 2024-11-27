@@ -15,6 +15,18 @@ list(APPEND test_link_dependency ${she_test_link_libs})
 ########################################################################################################################
 
 ########################################################################################################################
+# set ffmpeg_wrapper
+set(_ffmpeg_wrapper_path "${CMAKE_CURRENT_SOURCE_DIR}/third_party/ffmpeg_wrapper-1.0.0")
+set(ffmpeg_wrapper_include_dir "${_ffmpeg_wrapper_path}/include")
+set(ffmpeg_wrapper_lib_dir "${_ffmpeg_wrapper_path}/lib")
+set(ffmpeg_wrapper_link_libs ffmpeg_wrapper)
+# import ffmpeg_wrapper
+include_directories(${ffmpeg_wrapper_include_dir})
+link_directories(${ffmpeg_wrapper_lib_dir})
+list(APPEND src_link_dependency ${ffmpeg_wrapper_link_libs})
+########################################################################################################################
+
+########################################################################################################################
 # set ffmpeg
 set(FFMPEG_ROOT_DIR "/usr/local" CACHE STRING "default path")
 set(_ffmpeg_path ${FFMPEG_ROOT_DIR})
@@ -25,6 +37,18 @@ set(ffmpeg_link_libs avcodec avdevice avfilter avformat avutil postproc swresamp
 include_directories(${ffmpeg_include_dir})
 link_directories(${ffmpeg_lib_dir})
 list(APPEND src_link_dependency ${ffmpeg_link_libs})
+########################################################################################################################
+
+########################################################################################################################
+# set portaudio
+set(_portaudio_path "${CMAKE_CURRENT_SOURCE_DIR}/third_party/portaudio-v19.7.0")
+set(portaudio_include_dir "${_portaudio_path}/include")
+set(portaudio_lib_dir "${_portaudio_path}/lib")
+set(portaudio_link_libs portaudio)
+# import portaudio
+include_directories(${portaudio_include_dir})
+link_directories(${portaudio_lib_dir})
+list(APPEND src_link_dependency ${portaudio_link_libs})
 ########################################################################################################################
 
 ########################################################################################################################
