@@ -48,6 +48,7 @@ TEST2(validation, play_mp3_test) {  // 修改为 play_wav_test（更贴切）
   }
   /********************************************************************************************************************/
 
+  int count = 0;
   std::cout << "Playing " << wav_path << std::endl;
   for (uint32_t size = 1; size != 0;) {
     const auto data = wav.start_receiving<demux::type::audio>(1);
@@ -60,6 +61,10 @@ TEST2(validation, play_mp3_test) {  // 修改为 play_wav_test（更贴切）
       for (auto &frame : pcm_list) {
         // 在这里进行播放
         Pa_WriteStream(stream, frame.get()->data[0], frame.get()->nb_samples);
+        count++;
+        if (count % 100 == 0) {
+          std::cout << count << std::endl;
+        }
       }
     }
   }
