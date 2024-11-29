@@ -8,15 +8,14 @@ namespace {
 const std::string wav_path = "../resource/Something_Just_Like_this.wav";  // 修改为 WAV 文件路径
 }  // namespace
 
-TEST2(validation, play_mp3_test) {  // 修改为 play_wav_test（更贴切）
+TEST2(validation, play_wav_test) {
   demux wav;
   wav.open(wav_path, {});
 
-  av_codec_context_support ctx;
-
-  // 假设解码器支持 WAV 格式（PCM）
-  decode decoder(wav.get_codec_id<demux::type::audio>());
-  decoder.create_decoder(ctx.add_avcodec_parameters<demux::type::audio>(wav));
+  decode decoder(wav.get_codec_id<demux::type::audio>()); /* Create decoder*/ {
+    av_codec_context_support ctx;
+    decoder.create_decoder(ctx.add_avcodec_parameters<demux::type::audio>(wav));
+  }
 
   /********************************************************************************************************************/
   PaError err = Pa_Initialize();
