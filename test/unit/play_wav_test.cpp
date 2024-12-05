@@ -4,8 +4,11 @@
 
 #include <thread>
 
+#include "external/spdlog_wrapper.h"
+
 namespace {
 const std::string wav_path = "../resource/Something_Just_Like_this.wav";  // 修改为 WAV 文件路径
+auto logger                = spdlog_wrapper::get_logger("test");
 }  // namespace
 
 TEST2(unit, play_wav_test) {
@@ -33,7 +36,7 @@ TEST2(unit, play_wav_test) {
   player.start();
 
   int count = 0;
-  std::cout << "Playing " << wav_path << std::endl;
+  logger->info("start playing");
   for (uint32_t size = 1; size != 0;) {
     const auto data = wav.start_receiving<demux::type::audio>(1);
 
@@ -47,12 +50,12 @@ TEST2(unit, play_wav_test) {
         player.write(frame.get()->data[0], frame.get()->nb_samples);
         count++;
         if (count % 100 == 0) {
-          std::cout << count << std::endl;
+          logger->info("{}", count);
         }
       }
     }
 
   }
 
-  std::cout << "Playing done." << std::endl;
+  logger->info("Playing done.");
 }
